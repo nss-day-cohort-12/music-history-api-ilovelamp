@@ -9,12 +9,13 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
 //For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+//Postman Route:  http://localhost:5000/api/MusicListener
 
 namespace ILoveLampMusic.Controllers
 {
     [Produces("application/json")]
     [EnableCors("AllowSpecificOrigin")]
-    [Route("api/Animals")]
+    [Route("api/MusicListener")]
     public class MusicListenerController : Controller
     {
         private MusicHistoryContext _context;
