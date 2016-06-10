@@ -911,6 +911,19 @@
           "lib/netstandard1.3/Microsoft.EntityFrameworkCore.SqlServer.dll": {}
         }
       },
+      "Microsoft.EntityFrameworkCore.SqlServer.Design/1.0.0-rc2-final": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore.Relational.Design": "1.0.0-rc2-final",
+          "Microsoft.EntityFrameworkCore.SqlServer": "1.0.0-rc2-final"
+        },
+        "compile": {
+          "lib/netstandard1.3/Microsoft.EntityFrameworkCore.SqlServer.Design.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.3/Microsoft.EntityFrameworkCore.SqlServer.Design.dll": {}
+        }
+      },
       "Microsoft.EntityFrameworkCore.Tools/1.0.0-preview1-final": {
         "type": "package",
         "dependencies": {
@@ -4423,6 +4436,18 @@
         "lib/net451/Microsoft.EntityFrameworkCore.SqlServer.xml",
         "lib/netstandard1.3/Microsoft.EntityFrameworkCore.SqlServer.dll",
         "lib/netstandard1.3/Microsoft.EntityFrameworkCore.SqlServer.xml"
+      ]
+    },
+    "Microsoft.EntityFrameworkCore.SqlServer.Design/1.0.0-rc2-final": {
+      "sha512": "qfdYYfigbGz0jwuJR24mbtTASrcN9lg0+IR1MXdNAkR5/SRYbT44baK9E499r9P9p/tX6eUQNspcMEVUeQ+ykQ==",
+      "type": "package",
+      "files": [
+        "Microsoft.EntityFrameworkCore.SqlServer.Design.1.0.0-rc2-final.nupkg.sha512",
+        "Microsoft.EntityFrameworkCore.SqlServer.Design.nuspec",
+        "lib/net451/Microsoft.EntityFrameworkCore.SqlServer.Design.dll",
+        "lib/net451/Microsoft.EntityFrameworkCore.SqlServer.Design.xml",
+        "lib/netstandard1.3/Microsoft.EntityFrameworkCore.SqlServer.Design.dll",
+        "lib/netstandard1.3/Microsoft.EntityFrameworkCore.SqlServer.Design.xml"
       ]
     },
     "Microsoft.EntityFrameworkCore.Tools/1.0.0-preview1-final": {
@@ -9767,6 +9792,7 @@
       "Microsoft.AspNetCore.Server.IISIntegration >= 1.0.0-rc2-final",
       "Microsoft.AspNetCore.Server.Kestrel >= 1.0.0-rc2-final",
       "Microsoft.EntityFrameworkCore.SqlServer >= 1.0.0-rc2-final",
+      "Microsoft.EntityFrameworkCore.SqlServer.Design >= 1.0.0-rc2-final",
       "Microsoft.EntityFrameworkCore.Tools >= 1.0.0-preview1-final",
       "Microsoft.Extensions.Configuration.EnvironmentVariables >= 1.0.0-rc2-final",
       "Microsoft.Extensions.Configuration.FileExtensions >= 1.0.0-rc2-final",
