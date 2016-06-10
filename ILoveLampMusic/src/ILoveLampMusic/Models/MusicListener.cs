@@ -8,8 +8,8 @@ namespace ILoveLampMusic.Models
     public class MusicListener
     {
         public int MusicListenerId { get; set; }
-        public string name { get; set; }
-        public string email { get; set; }
+        public string Name { get; set; }
+        public string Email { get; set; }
         public ICollection<Track> Track { get; set; }
     }
 }
