@@ -10,6 +10,6 @@ namespace ILoveLampMusic.Models
         public int MusicListenerId { get; set; }
         public string name { get; set; }
         public string email { get; set; }
-        public List<Track> Track { get; set; }
+        public ICollection<Track> Track { get; set; }
     }
 }
