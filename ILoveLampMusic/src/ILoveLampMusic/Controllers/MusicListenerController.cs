@@ -14,7 +14,7 @@ namespace ILoveLampMusic.Controllers
 {
     [Produces("application/json")]
     [EnableCors("AllowSpecificOrigin")]
-    [Route("api/Animals")]
+    [Route("api/MusicListener")]
     public class MusicListenerController : Controller
     {
         private MusicHistoryContext _context;
