@@ -8,10 +8,7 @@ namespace ILoveLampMusic.Models
 {
     public class MusicHistoryContext: DbContext 
     {
-        //public  MusicHistoryContext ()
-        //{   
-            
-        //}
+
         public MusicHistoryContext(DbContextOptions<MusicHistoryContext> options)
            : base(options)
         { }
