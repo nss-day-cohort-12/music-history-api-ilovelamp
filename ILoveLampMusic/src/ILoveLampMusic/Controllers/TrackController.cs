@@ -5,13 +5,15 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Cors;
 using ILoveLampMusic.Models;
+using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace ILoveLampMusic.Controllers
 {
     [Produces("application/json")]
-    [EnableCors("AllowSpecificOrigin")]
+    [EnableCors("AllowNewDevelopmentEnvironment")]
     [Route("api/Track")]
     public class TrackController : Controller
     {
@@ -52,28 +54,120 @@ namespace ILoveLampMusic.Controllers
         }
 
         // GET api/values/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
+        //[HttpGet("{id}")]
+        //public string Get(int id)
+        //{
+        //    return "value";
+        //}
 
         // POST api/values
         [HttpPost]
-        public void Post([FromBody]string value)
+        public IActionResult Post([FromBody]Track tracks)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+
+            var existingSong = from t in _context.Track
+                               select new Track
+
+                               {
+                                   Author = tracks.Author,
+                                   Genre = tracks.Genre,
+                                   Length = tracks.Length,
+                                   Musiclistener = tracks.Musiclistener,
+                                   Title = tracks.Title,
+                                   AlbumId = tracks.AlbumId,
+                               };
+
+            if (existingSong.Count<Track>() > 0)
+            {
+                return new StatusCodeResult(StatusCodes.Status409Conflict);
+            }
+
+
+            _context.Track.Add(tracks);
+
+            try
+            {
+                _context.SaveChanges();
+            }
+            catch (DbUpdateException)
+            {
+                if (ExistingTrack(tracks.TrackId))
+                {
+                    return new StatusCodeResult(StatusCodes.Status409Conflict);
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return CreatedAtRoute("GetListener", new { id = tracks.TrackId }, tracks);
         }
 
         // PUT api/values/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        public IActionResult Put(int id, [FromBody]Track tracks)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (id != tracks.TrackId)
+            {
+                return BadRequest();
+            }
+
+            _context.Entry(tracks).State = EntityState.Modified;
+
+            try
+            {
+                _context.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!ExistingTrack(tracks.TrackId))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return new StatusCodeResult(StatusCodes.Status204NoContent);
         }
 
         // DELETE api/values/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            Track tracks = _context.Track.Single(m => m.TrackId == id);
+            if (tracks == null)
+            {
+                return NotFound();
+            }
+
+            _context.Track.Remove(tracks);
+            _context.SaveChanges();
+
+            return Ok(tracks);
+        }
+
+        private bool ExistingTrack(int id)
+        {
+            return _context.Track.Count(e => e.TrackId == id) > 0;
         }
     }
 }
